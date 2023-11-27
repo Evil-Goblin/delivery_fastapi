@@ -9,11 +9,11 @@ from app.entities.collections.shop.shop_document import (
     ShopDeliveryAreaSubDocument,
     ShopDocument,
 )
-from app.utils.mongo import db
+from app.utils.mongo import get_db
 
 
 class ShopCollection:
-    _collection = AsyncIOMotorCollection(db, "shops")
+    _collection = AsyncIOMotorCollection(get_db(), "shops")
 
     @classmethod
     async def point_intersects(cls, point: GeoJsonPoint) -> list[ShopDocument]:
