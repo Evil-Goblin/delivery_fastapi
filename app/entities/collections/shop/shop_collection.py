@@ -13,7 +13,7 @@ from app.utils.mongo import get_db
 
 
 class ShopCollection:
-    _collection = AsyncIOMotorCollection(get_db(), "shops")
+    _collection: Any = AsyncIOMotorCollection(get_db(), "shops")
 
     @classmethod
     async def point_intersects(cls, point: GeoJsonPoint) -> list[ShopDocument]:

@@ -1,15 +1,16 @@
 import asyncio
 import json
 import os
+from typing import Any
 
 from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorCollection
 from pymongo.errors import BulkWriteError
 
 DATABASE_NAME = os.environ.get("MONGO_DATABASE", "yorigin")
 
-client = AsyncIOMotorClient()
-db = client[DATABASE_NAME]
-shop_collection = AsyncIOMotorCollection(db, "shops")
+client: Any = AsyncIOMotorClient()
+db: Any = client[DATABASE_NAME]
+shop_collection: Any = AsyncIOMotorCollection(db, "shops")
 
 
 async def insert_all() -> None:
