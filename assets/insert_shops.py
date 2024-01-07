@@ -6,7 +6,10 @@ from typing import Any
 from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorCollection
 from pymongo.errors import BulkWriteError
 
-from app.utils.mongo_url_util import create_mongo_url
+
+def create_mongo_url(host: str = "localhost", port: int = 27017) -> str:
+    return f"mongodb://{host}:{port}"
+
 
 DATABASE_NAME = os.environ.get("MONGO_DATABASE", "yorigin")
 HOST = os.environ.get("MONGO_HOST", "localhost")
