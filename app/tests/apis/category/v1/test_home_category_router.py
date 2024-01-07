@@ -53,16 +53,16 @@ async def test_api_get_categories_distinct() -> None:
     assert [elem for elem in response.json()["categories"]] == [CategoryCode.CHICKEN.value]
 
 
-# async def test_api_get_categories_one_by_one_latitude_too_big() -> None:
-#     # Given
-#     too_big_latitude = 47.49006
-#
-#     # When
-#     async with AsyncClient(app=app, base_url="http://test") as client:
-#         response = await client.get(f"/v1/home_categories/one_by_one?longitude=127.005&latitude={too_big_latitude}")
-#
-#     # Then
-#     assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
+async def test_api_get_categories_one_by_one_latitude_too_big() -> None:
+    # Given
+    too_big_latitude = 47.49006
+
+    # When
+    async with AsyncClient(app=app, base_url="http://test") as client:
+        response = await client.get(f"/v1/home_categories/one_by_one?longitude=127.005&latitude={too_big_latitude}")
+
+    # Then
+    assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
 
 
 async def test_parse_long_latitude() -> None:

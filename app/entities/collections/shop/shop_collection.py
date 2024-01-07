@@ -18,7 +18,22 @@ class ShopCollection:
 
     @classmethod
     async def set_index(cls) -> None:
-        await cls._collection.create_index([("delivery_areas.poly", pymongo.GEOSPHERE)])
+        await cls._collection.create_index(
+            [
+                ("delivery_areas.poly", pymongo.GEOSPHERE),
+                ("category_codes", pymongo.ASCENDING),
+            ]
+        )
+
+    @classmethod
+    async def exists_by_category_and_point_intersects(cls, category_code: CategoryCode, point: GeoJsonPoint) -> bool:
+        cnt = await cls._collection.count_documents(
+            {"category_codes": category_code, "delivery_areas.poly": {"$geoIntersects": {"$geometry": asdict(point)}}},
+            limit=1,
+        )
+
+        # 같이 채우기
+        return bool(cnt)
 
     @classmethod
     async def point_intersects(cls, point: GeoJsonPoint) -> list[ShopDocument]:
