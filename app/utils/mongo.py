@@ -2,10 +2,7 @@ import os
 
 from motor.motor_asyncio import AsyncIOMotorClient
 
-
-def create_mongo_url(host: str = "localhost", port: int = 27017) -> str:
-    return f"mongodb://{host}:{port}"
-
+from app.utils.mongo_url_util import create_mongo_url
 
 DATABASE_NAME = os.environ.get("MONGO_DATABASE", "yorigin")
 HOST = os.environ.get("MONGO_HOST", "localhost")

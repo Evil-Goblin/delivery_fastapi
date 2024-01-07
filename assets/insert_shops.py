@@ -6,9 +6,13 @@ from typing import Any
 from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorCollection
 from pymongo.errors import BulkWriteError
 
-DATABASE_NAME = os.environ.get("MONGO_DATABASE", "yorigin")
+from app.utils.mongo_url_util import create_mongo_url
 
-client: Any = AsyncIOMotorClient()
+DATABASE_NAME = os.environ.get("MONGO_DATABASE", "yorigin")
+HOST = os.environ.get("MONGO_HOST", "localhost")
+PORT = os.environ.get("MONGO_PORT", 27017)
+
+client: Any = AsyncIOMotorClient(create_mongo_url(HOST, int(PORT)))
 db: Any = client[DATABASE_NAME]
 shop_collection: Any = AsyncIOMotorCollection(db, "shops")
 
